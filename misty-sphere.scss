@@ -1,0 +1,50 @@
+$sphere-size: 45vmin;
+
+@mixin absolutely {
+  position: absolute;
+  top:0;right:0;bottom:0;left:0;
+  margin: auto;
+}
+
+* {box-sizing: border-box;}
+
+html,body {
+  width: 100%;
+  min-height: 100%;
+  font-size: 16px;
+  line-height: 1.4rem;
+  background-color: rgb(24,24,24);
+}
+
+.sphere {
+  @include absolutely();
+  width: $sphere-size;
+  height: $sphere-size;
+  animation: spinSphere 20s infinite linear;
+  transform-style: preserve-3d;
+  filter: url('#soft');
+}
+
+[class^="ring"] {
+  @include absolutely();
+  width: $sphere-size;
+  height: $sphere-size;
+  border-radius: 50%;
+}
+
+
+@for $i from 1 through 36 {
+  [class$="#{$i}"] {
+    transform: rotateY($i * 2deg) rotateX($i*2deg) rotateZ($i * 3deg);
+    box-shadow:0 0 (1px + ($i * 2)) rgba((255 - ($i * 2)),(170 - round($i * .5)),(45 * round($i / 3)), 0.1), inset 0 0 (1px + ($i * 2)) rgba((255 - ($i * 2)),(170 - round($i * .5)),(45 * round($i / 3)), 0.1);
+  }
+} 
+
+@keyframes spinSphere {
+  from {
+    transform: rotateZ(0deg) rotateX(0deg) rotateY(0deg);
+  }
+  to {
+    transform: rotateZ(360deg) rotateX(-360deg) rotateZ(360deg);
+  }
+}

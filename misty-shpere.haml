@@ -1,0 +1,10 @@
+.sphere
+ -(1..36).each do |i|
+  %div{:class => "ring#{i}"}
+  
+%svg{:mlns => "http://www.w3.org/2000/svg", :version => "1.1"}
+ %defs
+  %filter{:id => "soft"}
+   %feGaussianBlur{:in => "SourceGraphic", :stdDeviation => "1000", :result => "blur"}
+   %feColorMatrix{ :in => "blur", :mode => "matrix", :values => "1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 40 -5", :result => "soft"}
+   %feBlend{:in => "SourceGraphic",  :in2 => "soft", :operator => "atop"}
